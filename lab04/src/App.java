@@ -1,20 +1,26 @@
+import java.math.BigDecimal;
 import java.sql.*;
 
-
 public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Consulta de contas!");
-        String url = "jdbc:postgresql://aws-1-sa-east-1.pooler.supabase.com:6543/postgres?user=postgres.ohqxmmjnuwgitrckverx&password=TransitoMe\\estressa";
+    public static void main(String[] args) throws SQLException {
+        read();
+    }
+
+    // READ
+    public static void read() throws SQLException {
+        String url = "jdbc:postgresql://aws-1-sa-east-1.pooler.supabase.com:6543/postgres?user=postgres.ohqxmmjnuwgitrckverx&password=HQ9J8#@2025";
+                     
         Connection c = DriverManager.getConnection(url);
-        System.out.println("Conexão ok!");
-        String sql = "SELECT * FROM CONTAS";
+        String sql = "SELECT * FROM contas";
         PreparedStatement stm = c.prepareStatement(sql);
-        ResultSet resultado = stm.executeQuery();
-        while (resultado.next()) {
-            long nro = resultado.getLong("nro_conta");
-            double saldo = resultado.getDouble("saldo");
-            System.out.println("Número: " + nro + " - R$ " + saldo);
+        ResultSet rs = stm. executeQuery();
+        while (rs.next()) {
+            long nro = rs.getLong("nro_conta");
+            BigDecimal saldo = rs. getBigDecimal ("saldo"); 
+            System. out. println("Conta número: " + nro + " tem saldo de R$ " + saldo);
         }
-        c.close();
+        c.close ();
     }
 }
+
+
